@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: kinly-family-tracker-v3
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: KINLY_SECRET_KEY
+        generateValue: true
+      - key: KINLY_DB_PATH
+        value: /var/data/kinly.sqlite3
+    disk:
+      name: kinly-data
+      mountPath: /var/data
+      sizeGB: 1
